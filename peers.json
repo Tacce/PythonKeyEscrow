@@ -1,0 +1,7 @@
+[
+  {"id": 1, "host": "localhost", "port": 6001},
+  {"id": 2, "host": "localhost", "port": 6002},
+  {"id": 3, "host": "localhost", "port": 6003},
+  {"id": 4, "host": "localhost", "port": 6004},
+  {"id": 5, "host": "localhost", "port": 6005}
+]
