@@ -50,6 +50,7 @@ def handle_client(conn, addr, context):
                     global secret
                     print("[*] Soglia raggiunta. Ricostruzione del segreto...")
                     secret = reconstruct_secret(received_shares[:THRESHOLD])
+                    print("")
                     print(f"[✓] Segreto ricostruito: {secret}")
                     print("")
                     
@@ -82,18 +83,14 @@ if __name__ == "__main__":
 
         while secret is None:
             try:
-                # SEQUENZA CORRETTA:
                 # Accept connessione normale
+                print("[*] In attesa di nuove connessioni...")  
                 conn, addr = s.accept()
                 print(f"[-] Connessione ricevuta da {addr}")
                 
-                # Passa la connessione al thread per SSL wrapping
-                threading.Thread(
-                    target=handle_client, 
-                    args=(conn, addr, context), 
-                    daemon=True
-                ).start()
-                
+                handle_client(conn, addr, context)
+            
+                    
             except Exception as e:
                 print(f"[!] Errore nell'accettare connessioni: {e}")
                 continue

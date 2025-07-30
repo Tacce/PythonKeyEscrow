@@ -15,13 +15,13 @@ def send_share_to_peer(peer, share):
         context.load_verify_locations("PKI/ca-cert.pem")
         context.load_cert_chain("PKI/holder-cert.pem", "PKI/holder-key.pem")
         
-        # Per connessioni localhost - disabilita completamente hostname check
-        context.check_hostname = False
-        context.verify_mode = ssl.CERT_NONE  # Temporaneamente per debug
+        context.check_hostname = True
+        context.verify_mode = ssl.CERT_REQUIRED  
         
+        server_hostname = f"peer{peer['id']}.localhost"
+
         with socket.create_connection((peer["host"], peer["port"]), timeout=10) as sock:
-            # Non specificare server_hostname per localhost
-            with context.wrap_socket(sock, server_side=False) as ssock:
+            with context.wrap_socket(sock, server_side=False, server_hostname=server_hostname) as ssock:
                 payload = {
                     "x": share[0],
                     "y": share[1]
