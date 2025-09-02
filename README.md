@@ -60,8 +60,15 @@ Una volta ricevuto il numero di *share* necessari, il server riesce a ricostruir
 
 ## Sicurezza
 Tutte le comunicazioni avvengono tramite **SSL/TLS** con **mutua autenticazione** grazie all'utilizzo del modulo `ssl` di Python.  
-Una **CA locale** firma i certificati di holder, peer e server.  
-Le connessioni vengono accettate solo se i certificati sono validi e appartengono alla stessa CA.
+Una **CA locale** con certificato *self-signed* firma i certificati di holder, peer e server.  
+Le connessioni vengono accettate solo se i certificati (standard X.509) sono validi e appartengono alla stessa CA.
+
+
+Per visualizzare le informazioni di un un certificato si può eseguire questo comando:
+  ```bash
+  openssl x509 -in PKI/XXXX-cert.pem -text -noout
+```
+
 
 ---
 
